@@ -44,4 +44,17 @@ return [
         ],
     ],
 
+    /**
+     * se crea un array llamado soap para esperar las variables creadas en el archivo .env y darles los valores que se procesaran a el web service
+     * @param id_soapWS refiere a SOAP_ID que es el identificador
+     * @param SOAP_SECRETKEY se refiere a la llave secretKey mencionada en el documento
+     * @param SOAP_ENDPOINT es el valor del endpoind que tambien está asignado en la documentacion
+     */
+
+    'soap' => [
+       'id_soapWS' => env('SOAP_ID'),
+       'secretkey' => env('SOAP_SECRETKEY'),
+       'endpoint'  => env('SOAP_ENDPOINT'),
+    ]
+
 ];
