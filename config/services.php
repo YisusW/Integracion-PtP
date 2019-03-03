@@ -55,6 +55,8 @@ return [
        'id_soapWS' => env('SOAP_ID'),
        'secretkey' => env('SOAP_SECRETKEY'),
        'endpoint'  => env('SOAP_ENDPOINT'),
+       'wsse'      => env('SOPA_WSSE'),
+       'wsu'       => env('SOPA_WSU'),
     ]
 
 ];
