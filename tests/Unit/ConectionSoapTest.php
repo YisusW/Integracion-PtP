@@ -57,11 +57,9 @@ class ConectionSoapTest extends TestCase
 
         $soap = new Config();
 
-        $result = $soap->getSoapConection($credentials->endpoint);
+        $client = $soap->getSoapConection($credentials->endpoint);
 
-        //$auth = new Auth( );
-
-        $result->__setSoapHeaders( $soap->getSoapHeader() );
+        $client->__setSoapHeaders( $soap->getSoapHeader() );
 
         $this->assertTrue(true);
     }
