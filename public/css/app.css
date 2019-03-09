@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+@charset "UTF-8";
 
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
@@ -10662,5 +10662,21 @@ a.text-dark:focus {
 
 .navbar-p2p-black {
   background-color: #000000;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #000000;
+  color: white;
+  text-align: center;
+  z-index: 3;
+}
+
+.list-group-item.active {
+  background-color: #72D54A;
+  border-color: #72D54A;
 }
 

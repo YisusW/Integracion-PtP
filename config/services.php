@@ -55,8 +55,8 @@ return [
        'id_soapWS' => env('SOAP_ID' , 'INTEGRATION'),
        'secretkey' => env('SOAP_SECRETKEY' , 'INTEGRATION'),
        'endpoint'  => env('SOAP_ENDPOINT' , 'INTEGRATION'),
-       'wsse'      => env('SOPA_WSSE' , 'INTEGRATION'),
-       'wsu'       => env('SOPA_WSU' , 'INTEGRATION'),
+       'wsse'      => env('SOAP_WSSE' , 'INTEGRATION'),
+       'wsu'       => env('SOAP_WSU' , 'INTEGRATION'),
     ]
 
 ];
