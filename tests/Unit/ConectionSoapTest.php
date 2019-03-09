@@ -32,7 +32,7 @@ class ConectionSoapTest extends TestCase
         } else if( $credentials->wsse == 'INTEGRATION' ){
             dd( 'Se debe agregar a el archivo .env la variable SOPA_WSSE' );
         } else if( $credentials->wsu == 'INTEGRATION' ){
-            dd( 'Se debe agregar a el archivo .env la variable SOAP_WSU' );
+            dd( 'Se debe agregar a el archivo .env la variable SOAP_WSU bug' );
         }
 
         $soap = new Config();
