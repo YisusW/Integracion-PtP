@@ -10,6 +10,9 @@ use App\Http\Controllers\Soap\Auth;
 
 class ConectionSoapTest extends TestCase
 {
+
+
+
     /**
      * A basic test example.
      * la funcion nos asegura que la conexion esta correctente establecida
@@ -19,6 +22,18 @@ class ConectionSoapTest extends TestCase
     public function testConection()
     {
         $credentials = (object) config('services.soap');
+
+        if ( $credentials->id_soapWS == 'INTEGRATION' ) {
+            dd( 'Se debe agregar a el archivo .env la variable SOAP_ID' );
+        } else if ( $credentials->secretkey == 'INTEGRATION' ) {
+            dd( 'Se debe agregar a el archivo .env la variable SOAP_SECRETKEY' );
+        } else if( $credentials->endpoint == 'INTEGRATION' ){
+            dd( 'Se debe agregar a el archivo .env la variable SOAP_ENDPOINT' );
+        } else if( $credentials->wsse == 'INTEGRATION' ){
+            dd( 'Se debe agregar a el archivo .env la variable SOPA_WSSE' );
+        } else if( $credentials->wsu == 'INTEGRATION' ){
+            dd( 'Se debe agregar a el archivo .env la variable SOAP_WSU' );
+        }
 
         $soap = new Config();
         /* se llama el endpoint que se establece en la documentacion */
@@ -54,6 +69,19 @@ class ConectionSoapTest extends TestCase
     public function testSoapConnectionHeader()
     {
         $credentials = (object) config('services.soap');
+
+        if ( $credentials->id_soapWS == 'INTEGRATION' ) {
+            dd( 'Se debe agregar a el archivo .env la variable SOAP_ID' );
+        } else if ( $credentials->secretkey == 'INTEGRATION' ) {
+            dd( 'Se debe agregar a el archivo .env la variable SOAP_SECRETKEY' );
+        } else if( $credentials->endpoint == 'INTEGRATION' ){
+            dd( 'Se debe agregar a el archivo .env la variable SOAP_ENDPOINT' );
+        } else if( $credentials->wsse == 'INTEGRATION' ){
+            dd( 'Se debe agregar a el archivo .env la variable SOPA_WSSE' );
+        } else if( $credentials->wsu == 'INTEGRATION' ){
+            dd( 'Se debe agregar a el archivo .env la variable SOAP_WSU' );
+        }
+
 
         $soap = new Config();
 

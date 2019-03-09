@@ -4,6 +4,22 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Commerce Name - Globals
+    |--------------------------------------------------------------------------
+    |
+    | This value is the name of your commerce. This value is used when the
+    | application needs to do a redirection to pay.
+    | without this variable the application just show a message about the test ambient that mean the variable need to put on use
+    |
+    */
+
+    'commerce_name'         => env('COMMERCE_NAME' , 'INTEGRACION'),
+    'commerce_manager'      => env('COMMERCE_MANAGER' , 'INTEGRACION'),
+    'commerce_phone_number' => env('COMMERCE_PHONE_NUMBER' , 'INTEGRACION'),
+    'commerce_email'        => env('COMMERCE_EMAIL_CONTACT' , 'INTEGRACION'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Name
     |--------------------------------------------------------------------------
     |

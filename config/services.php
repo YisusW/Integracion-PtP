@@ -52,11 +52,11 @@ return [
      */
 
     'soap' => [
-       'id_soapWS' => env('SOAP_ID'),
-       'secretkey' => env('SOAP_SECRETKEY'),
-       'endpoint'  => env('SOAP_ENDPOINT'),
-       'wsse'      => env('SOPA_WSSE'),
-       'wsu'       => env('SOPA_WSU'),
+       'id_soapWS' => env('SOAP_ID' , 'INTEGRATION'),
+       'secretkey' => env('SOAP_SECRETKEY' , 'INTEGRATION'),
+       'endpoint'  => env('SOAP_ENDPOINT' , 'INTEGRATION'),
+       'wsse'      => env('SOPA_WSSE' , 'INTEGRATION'),
+       'wsu'       => env('SOPA_WSU' , 'INTEGRATION'),
     ]
 
 ];
