@@ -1,6 +1,6 @@
 <template>
 
-  <div >
+  <div>
 
       <button type="button" class="btn btn-success btn-block" name="button" data-toggle="modal" data-target="#Terms-to-Pay">Pagar</button>
       <!-- Modal -->
@@ -20,7 +20,7 @@
               </div>
 
               <p>Cualquier persona que realice un compra en el sitio base_url, actuando libre
-              y voluntariamente, autoriza a <b class="text-muted" ></b>, a través del proveedor del servicio
+              y voluntariamente, autoriza a <b class="text-muted" >{{commerce_name}}</b>, a través del proveedor del servicio
               EGM Ingeniería Sin Fronteras S.A.S y/o Place to Pay para que consulte y solicite
               información del comportamiento crediticio, financiero, comercial y de servicios a
               terceros</p>
@@ -43,10 +43,8 @@
 </template>
 
 <script>
-    //import Parent from './http/Http' ;
-
     export default {
-
+      props : ['commerce_name'],
         data :function() {
           return {
             termins : false
@@ -56,13 +54,14 @@
 
         },
         methods :{
-
+          /* se valida si la variable termns esta true para seguir realizando el proceso de pago  */
           validate_acept : function(){
 
             if (this.termins == false) {
-
+               return false;
             } else {
                 $("#Terms-to-Pay").modal('toggle')
+                this.$emit('terms-checked');
             }
 
           }

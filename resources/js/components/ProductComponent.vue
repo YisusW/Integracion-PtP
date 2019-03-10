@@ -15,7 +15,6 @@
 
 <script>
     //import Parent from './http/Http' ;
-    axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 
     export default {
         data :function() {
@@ -35,15 +34,7 @@
             let n = String(number).replace(/\D/g, "");
             return n === '' ? n : Number(n).toLocaleString();
           },
-          /* funcoin que se encarga de seleccionar un producto */
-          select_product : function (){
 
-            axios.post( '/infoPayment' , { price : this.precio } )
-            .then( (response) => {
-              console.log(response.data.status);
-            })
-
-          },
         }
     }
 </script>

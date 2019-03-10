@@ -22,7 +22,7 @@ window.Vue = require('vue');
 
 Vue.component('product', require('./components/ProductComponent.vue').default);
 
-Vue.component('termins', require('./components/Termins.vue').default );
+Vue.component('payer', require('./components/Payer.vue').default );
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
