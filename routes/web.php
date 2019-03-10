@@ -20,3 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/fqa', 'HomeController@fqa');
+
+Route::post( '/infoPayment', 'ProductController@getInfoAboutProduct' );
