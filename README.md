@@ -6,18 +6,18 @@ Se requiere de las dependencias indicadas en el composer.json
 * Version NPM (6.8.0)
 
 ### Instalación básica para configurar el proyecto
-* 1
+*
   **run** composer install
 
       crea una carpeta /vendor
-* 2
+*
   **run** npm install
 
       crea una carpeta llamada /node_modules
 
       Recordando estar ubicado dentro del repositorio previamente descargado (terminal).
 
-### Correr migraciones tomando en cuenta que se debe habilitar la conexion a Postgresql.
+### Correr migraciones tomando en cuenta que se debe habilitar la conexion a Mysql.
 * php artisan migrate
 
 
