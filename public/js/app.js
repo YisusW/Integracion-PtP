@@ -1833,6 +1833,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['commerce_name', 'reference', 'price', 'iva', 'total'],
@@ -1843,32 +1875,53 @@ __webpack_require__.r(__webpack_exports__);
       email: "",
       address: "",
       message: false,
-      text_message: "debes completar el formulario"
+      text_message: "debes completar el formulario",
+      country_list: {},
+      payment_list: {},
+      type_do_list: {},
+      country_form: "",
+      document_form: "",
+      type_document_form: "",
+      method_payment_form: ""
     };
   },
   components: {
     Termins: _Termins__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    this.getCountry();
+  },
   methods: {
+    /* funcion encargada de consultar los paises registrados en la base de datos */
+    getCountry: function getCountry() {
+      var _this = this;
+
+      axios.get('/getCountries').then(function (response) {
+        if (response.data.status == true) {
+          _this.country_list = response.data.countries;
+        }
+      });
+    },
+
+    /* se detona con un emit que proviene de el componente Terms que se incluye al principio del componente */
     validate_payer: function validate_payer() {
       if (this.full_name == "") {
-        this.text_message = "Debes agregar un nombre completoo";
+        this.text_message = "Debes agregar un nombre completo.";
         return false;
       }
 
       if (this.cellphone == "") {
-        this.text_message = "Debes agregar un número de teléfono";
+        this.text_message = "Debes agregar un número de teléfono.";
         return false;
       }
 
       if (this.email == "") {
-        this.text_message = "Debes agregar un correo electrónico";
+        this.text_message = "Debes agregar un correo electrónico.";
         return false;
       }
 
       if (this.address == "") {
-        this.text_message = "Debes agregar una dirección";
+        this.text_message = "Debes agregar una dirección.";
         return false;
       }
 
@@ -1877,13 +1930,37 @@ __webpack_require__.r(__webpack_exports__);
     send_form_payer: function send_form_payer() {
       /* se establece el request para realizar la creacion de la session en la pasarela de pago */
       var from = {
-        cellphone: this.cellphone,
-        full_name: this.full_name,
-        email: this.email,
-        address: this.address
+        payer: {
+          full_name: this.full_name,
+          cellphone: this.cellphone,
+          email: this.email,
+          address: this.address,
+          type_document_form: this.type_document_form,
+          document_form: this.document_form
+        },
+        payment: {
+          country: this.country_form,
+          reference: this.reference,
+          price: this.price,
+          paymentmethod: this.method_payment_form
+        }
       };
       axios.post('/createSession', from).then(function (response) {
         if (response.data.status == 1) {} else {}
+      });
+    },
+
+    /* esta  funcion se encarga de devolver la informacion acerca del pais seleccionado */
+    search_type_document_and_method: function search_type_document_and_method() {
+      var _this2 = this;
+
+      axios.post('/getMethodsandTypeDocument', {
+        country_id: this.country_form
+      }).then(function (response) {
+        if (response.data.status == true) {
+          _this2.payment_list = response.data.methods;
+          _this2.type_do_list = response.data.type_docucment;
+        }
       });
     }
   }
@@ -37083,7 +37160,172 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col" }, [
         _c("p", { staticClass: "h3 text-center" }, [
-          _vm._v(" Datos del comprador ")
+          _vm._v(" Datos del pagador ")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v(" País ")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.country_form,
+                  expression: "country_form"
+                }
+              ],
+              staticClass: "form-control",
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.country_form = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                  _vm.search_type_document_and_method
+                ]
+              }
+            },
+            [
+              _c("option", { attrs: { value: "" } }, [_vm._v("Selecciona")]),
+              _vm._v(" "),
+              _vm._l(_vm.country_list, function(value) {
+                return _c("option", { domProps: { value: value.id } }, [
+                  _vm._v(_vm._s(value.name) + " ")
+                ])
+              })
+            ],
+            2
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v(" Tipo de documento ")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.type_document_form,
+                  expression: "type_document_form"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { name: "" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.type_document_form = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "" } }, [_vm._v("Selecciona")]),
+              _vm._v(" "),
+              _vm._l(_vm.type_do_list, function(value) {
+                return _c("option", { domProps: { value: value.code } }, [
+                  _vm._v(_vm._s(value.description) + " ")
+                ])
+              })
+            ],
+            2
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [
+            _vm._v(" Documento de identidad ")
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.document_form,
+                expression: "document_form"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", name: "", value: "" },
+            domProps: { value: _vm.document_form },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.document_form = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Metodo de pago")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.method_payment_form,
+                  expression: "method_payment_form"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { name: "" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.method_payment_form = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "" } }, [_vm._v("Selecciona")]),
+              _vm._v(" "),
+              _vm._l(_vm.payment_list, function(value) {
+                return _c("option", { domProps: { value: value.code } }, [
+                  _vm._v(_vm._s(value.description) + " ")
+                ])
+              })
+            ],
+            2
+          )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [

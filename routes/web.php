@@ -22,3 +22,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/fqa', 'HomeController@fqa');
 
 Route::post( '/infoPayment', 'ProductController@getInfoAboutProduct' );
+
+Route::post( '/createSession', 'SessionController@createSession' );
+
+Route::get( '/getCountries' , 'CountryController@getall' );
+
+Route::post( '/getMethodsandTypeDocument' , 'CountryController@getInfoToForm' );

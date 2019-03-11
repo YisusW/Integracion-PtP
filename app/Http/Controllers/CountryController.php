@@ -52,7 +52,6 @@ class CountryController extends Controller
         $type_document = $this->getControllerTypeDocument()->getTypeDocumentByIdCountry($country);
 
         return response()->json( array( 'status' => true , 'methods' => $payment_methods , 'type_docucment' => $type_document ) );
-
     }
 
 }

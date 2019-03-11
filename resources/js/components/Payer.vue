@@ -12,7 +12,39 @@
 
       <div class="col">
 
-        <p class="h3 text-center" > Datos del comprador </p>
+        <p class="h3 text-center" > Datos del pagador </p>
+
+        <div class="form-group">
+          <label for=""> País </label>
+          <select v-model="country_form" class="form-control" @change="search_type_document_and_method" >
+            <option value="">Selecciona</option>
+            <option v-for="value in country_list"
+                    :value="value.id">{{ value.name }} </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for=""> Tipo de documento </label>
+          <select class="form-control" name="" v-model="type_document_form">
+            <option value="">Selecciona</option>
+            <option v-for="value in type_do_list"
+                    :value="value.code">{{ value.description }} </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for=""> Documento de identidad </label>
+          <input type="text" class="form-control" name="" value="" v-model="document_form" >
+        </div>
+
+        <div class="form-group">
+          <label for="">Metodo de pago</label>
+          <select class="form-control" name="" v-model="method_payment_form" >
+            <option value="">Selecciona</option>
+            <option v-for="value in payment_list"
+                    :value="value.code">{{ value.description }} </option>
+          </select>
+        </div>
 
         <div class="form-group">
           <label for="">Nombre completo</label>
@@ -79,7 +111,14 @@
             email    : "",
             address  : "",
             message  : false,
-            text_message : "debes completar el formulario"
+            text_message : "debes completar el formulario",
+            country_list : {},
+            payment_list : {},
+            type_do_list : {},
+            country_form : "",
+            document_form : "",
+            type_document_form : "",
+            method_payment_form : ""
           }
         },
         components: {
@@ -87,25 +126,39 @@
         },
         mounted() {
 
+          this.getCountry();
+
         },
         methods :{
+          /* funcion encargada de consultar los paises registrados en la base de datos */
+          getCountry : function(){
 
+            axios.get( '/getCountries' ).then( (response) => {
+
+              if ( response.data.status == true ) {
+                this.country_list = response.data.countries
+              }
+
+            })
+
+          },
+          /* se detona con un emit que proviene de el componente Terms que se incluye al principio del componente */
           validate_payer : function (){
 
               if (this.full_name == ""){
-                this.text_message = "Debes agregar un nombre completoo"
+                this.text_message = "Debes agregar un nombre completo."
                 return false
               }
               if (this.cellphone == ""){
-                this.text_message = "Debes agregar un número de teléfono"
+                this.text_message = "Debes agregar un número de teléfono."
                 return false
               }
               if (this.email == ""){
-                this.text_message = "Debes agregar un correo electrónico"
+                this.text_message = "Debes agregar un correo electrónico."
                 return false
               }
               if (this.address == ""){
-                this.text_message = "Debes agregar una dirección"
+                this.text_message = "Debes agregar una dirección."
                 return false
               }
               this.send_form_payer()
@@ -114,7 +167,22 @@
           send_form_payer : function (){
             /* se establece el request para realizar la creacion de la session en la pasarela de pago */
 
-            let from = { cellphone : this.cellphone , full_name : this.full_name , email : this.email , address : this.address }
+            let from = {
+              payer :{
+                      full_name : this.full_name ,
+                      cellphone : this.cellphone ,
+                      email     : this.email ,
+                      address   : this.address,
+                      type_document_form : this.type_document_form,
+                      document_form : this.document_form
+                      },
+              payment:{
+                      country   : this.country_form,
+                      reference : this.reference,
+                      price     : this.price,
+                      paymentmethod : this.method_payment_form
+                      }
+              }
 
             axios.post( '/createSession' , from ).then( (response) => {
               if ( response.data.status == 1 ) {
@@ -122,6 +190,20 @@
               } else {
 
               }
+            });
+
+          },
+          /* esta  funcion se encarga de devolver la informacion acerca del pais seleccionado */
+          search_type_document_and_method : function (){
+
+
+            axios.post( '/getMethodsandTypeDocument' ,  { country_id : this.country_form } ).then( (response) => {
+
+              if ( response.data.status == true ) {
+                this.payment_list = response.data.methods
+                this.type_do_list = response.data.type_docucment
+              }
+
             });
 
           }

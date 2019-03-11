@@ -17,6 +17,7 @@ class PaymentMethodsController extends Controller
      */
     public function getPaymentMethods( Country $country )
     {
-        return CountryPaymentMethod::where('country_id' ,  $country->id )->get();
+        return CountryPaymentMethod::where('country_id' ,  $country->id )
+        ->get(['code', 'description']);
     }
 }
