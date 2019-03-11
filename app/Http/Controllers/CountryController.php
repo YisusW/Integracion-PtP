@@ -54,4 +54,14 @@ class CountryController extends Controller
         return response()->json( array( 'status' => true , 'methods' => $payment_methods , 'type_docucment' => $type_document ) );
     }
 
+    /**
+     * funcion que devuelve la informacion de un pais seleccionado
+     * @param int $countr_id
+     * @return
+     */
+     public function getCountry( $country_id )
+     {
+         return Country::where( 'id' , $country_id )->get()->first();
+     }
+
 }

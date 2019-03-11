@@ -52,7 +52,7 @@
         </div>
 
         <div class="form-group">
-          <label for="">Email del comprador</label>
+          <label for="">Email del pagador</label>
           <input type="email" class="form-control" name="email" v-model="email" value="">
         </div>
 
@@ -161,6 +161,24 @@
                 this.text_message = "Debes agregar una dirección."
                 return false
               }
+              if (this.country_form == ""){
+                this.text_message = "Debes seleccionar uno de los paises."
+                return false
+              }
+              if (this.document_form == ""){
+                this.text_message = "Debes escribir  tu documento de identidad."
+                return false
+              }
+              if (this.type_document_form == ""){
+                this.text_message = "Debes seleccionar un tipo de documento."
+                return false
+              }
+              if (this.method_payment_form == ""){
+                this.text_message = "Debes seleccionar algún medio de pago."
+                return false
+              }
+
+              this.message = true
               this.send_form_payer()
           },
 
@@ -169,17 +187,17 @@
 
             let from = {
               payer :{
-                      full_name : this.full_name ,
-                      cellphone : this.cellphone ,
+                      name : this.full_name ,
+                      mobile : this.cellphone ,
                       email     : this.email ,
                       address   : this.address,
-                      type_document_form : this.type_document_form,
-                      document_form : this.document_form
+                      documentType : this.type_document_form,
+                      document : this.document_form
                       },
               payment:{
                       country   : this.country_form,
                       reference : this.reference,
-                      price     : this.price,
+                      price     : this.total,
                       paymentmethod : this.method_payment_form
                       }
               }

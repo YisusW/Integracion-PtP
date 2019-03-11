@@ -22,11 +22,10 @@ class Config
       return array(
         'soap_version'   => SOAP_1_2,
         'exceptions'     => true,
-        'trace'          => false,
-        'encoding'       => 'UTF-8',
+        'trace'          => true,
         'cache_wsdl'     => WSDL_CACHE_NONE,
-        'features'       => SOAP_SINGLE_ELEMENT_ARRAYS,
-        'stream_context' => stream_context_create($this->getContext())
+        'stream_context' => stream_context_create($this->getContext()),
+        'encoding'       => 'UTF-8',
       );
     }
 

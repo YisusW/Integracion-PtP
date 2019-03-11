@@ -1925,23 +1925,44 @@ __webpack_require__.r(__webpack_exports__);
         return false;
       }
 
+      if (this.country_form == "") {
+        this.text_message = "Debes seleccionar uno de los paises.";
+        return false;
+      }
+
+      if (this.document_form == "") {
+        this.text_message = "Debes escribir  tu documento de identidad.";
+        return false;
+      }
+
+      if (this.type_document_form == "") {
+        this.text_message = "Debes seleccionar un tipo de documento.";
+        return false;
+      }
+
+      if (this.method_payment_form == "") {
+        this.text_message = "Debes seleccionar algún medio de pago.";
+        return false;
+      }
+
+      this.message = true;
       this.send_form_payer();
     },
     send_form_payer: function send_form_payer() {
       /* se establece el request para realizar la creacion de la session en la pasarela de pago */
       var from = {
         payer: {
-          full_name: this.full_name,
-          cellphone: this.cellphone,
+          name: this.full_name,
+          mobile: this.cellphone,
           email: this.email,
           address: this.address,
-          type_document_form: this.type_document_form,
-          document_form: this.document_form
+          documentType: this.type_document_form,
+          document: this.document_form
         },
         payment: {
           country: this.country_form,
           reference: this.reference,
-          price: this.price,
+          price: this.total,
           paymentmethod: this.method_payment_form
         }
       };
@@ -2085,6 +2106,15 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         $("#Terms-to-Pay").modal('toggle');
         this.$emit('terms-checked');
+      }
+    },
+
+    /* validar  si acepto los datos de  terminos */
+    validate_input: function validate_input() {
+      if (this.termins == true) {
+        this.$emit('terms-checked');
+      } else {
+        $("#Terms-to-Pay").modal('toggle');
       }
     }
   }
@@ -37355,7 +37385,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Email del comprador")]),
+          _c("label", { attrs: { for: "" } }, [_vm._v("Email del pagador")]),
           _vm._v(" "),
           _c("input", {
             directives: [
@@ -37650,12 +37680,8 @@ var render = function() {
       "button",
       {
         staticClass: "btn btn-success btn-block",
-        attrs: {
-          type: "button",
-          name: "button",
-          "data-toggle": "modal",
-          "data-target": "#Terms-to-Pay"
-        }
+        attrs: { type: "button", name: "button" },
+        on: { click: _vm.validate_input }
       },
       [_vm._v("Pagar")]
     ),

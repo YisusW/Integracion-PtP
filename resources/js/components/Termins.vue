@@ -2,7 +2,7 @@
 
   <div>
 
-      <button type="button" class="btn btn-success btn-block" name="button" data-toggle="modal" data-target="#Terms-to-Pay">Pagar</button>
+      <button type="button" class="btn btn-success btn-block" name="button" @click="validate_input">Pagar</button>
       <!-- Modal -->
       <div class="modal fade" id="Terms-to-Pay" tabindex="-1" role="dialog" aria-labelledby="Terms-Title" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -62,6 +62,16 @@
             } else {
                 $("#Terms-to-Pay").modal('toggle')
                 this.$emit('terms-checked');
+            }
+
+          },
+          /* validar  si acepto los datos de  terminos */
+          validate_input : function (){
+
+            if ( this.termins == true ) {
+              this.$emit('terms-checked');
+            } else {
+              $("#Terms-to-Pay").modal('toggle')
             }
 
           }
